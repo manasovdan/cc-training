@@ -8,3 +8,8 @@ coreo_aws_advisor_alert 'daniel' do
   operators ['>']
   alert_when [120]
 end
+
+coreo_aws_advisor_elb 'another-one' do
+  action :advise
+  alerts ['daniel']
+end
