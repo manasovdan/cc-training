@@ -1,2 +1,5 @@
 variables:
-
+  DUMMY_VARIABLE:
+      description: "created just to pass creation"
+      required: false
+      type: string
