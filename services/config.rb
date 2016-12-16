@@ -5,7 +5,7 @@ coreo_aws_advisor_alert 'daniel' do
   level 'Informational'
   objectives ['users']
   audit_objects ['users.password_last_used']
-  operators ['!~']
+  operators ['=~']
   alert_when [//]
 end
 
