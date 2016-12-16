@@ -5,7 +5,7 @@ coreo_aws_advisor_alert 'daniel' do
   level 'Informational'
   objectives ['users']
   audit_objects ['users.user_name']
-  operators ['~=']
+  operators ['=~']
   alert_when [/coreo-\w*-\w*/]
 end
 
