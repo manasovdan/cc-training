@@ -4,7 +4,7 @@ coreo_aws_advisor_alert 'daniel' do
   description 'snapshots that are greater than 256 GB that are not encrypted'
   level 'Informational'
   objectives ['snapshots', 'snapshots']
-  audit_objects ['snapshot_set.volume_size', 'snapshot_set.ecrypted']
+  audit_objects ['snapshot_set.volume_size', 'snapshot_set.encrypted']
   operators ['>', '==']
   alert_when [8, false]
   id_map 'object.snapshot_set.snapshot_id'
