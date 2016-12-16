@@ -7,6 +7,7 @@ coreo_aws_advisor_alert 'daniel' do
   audit_objects ['snapshot_set.volume_size', 'snapshot_set.ecrypted']
   operators ['>', '==']
   alert_when [8, false]
+  id_map 'object.snapshot_set.snapshot_id'
 end
 
 coreo_aws_advisor_ec2 'another-one' do
