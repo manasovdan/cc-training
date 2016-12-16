@@ -5,6 +5,6 @@ coreo_aws_advisor_alert 'daniel' do
   level 'Informational'
   objectives ['describe_instances']
   audit_objects ['spot_instance_request_set.launch_specification.block_device_mapping.ebs.volume_size', 'spot_instance_request_set.launch_specification.block_device_mapping.ebs.ecrypted']
-  operators ['>', '=']
+  operators ['>', '==']
   alert_when [8, false]
 end
