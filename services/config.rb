@@ -1,15 +1,10 @@
 coreo_aws_advisor_alert 'daniel' do
   action :define
-  service :elb
-  description 'What ELBs have healthcheck interval > 2 minutes'
+  service :ec2
+  description 'snapshots that are greater than 256 GB that are not encrypted'
   level 'Informational'
-  objectives ['load_balancers']
-  audit_objects ['load_balancer_descriptions.health_check.interval']
-  operators ['>']
-  alert_when [120]
-end
-
-coreo_aws_advisor_elb 'another-one' do
-  action :advise
-  alerts ['daniel']
+  objectives ['describe_instances']
+  audit_objects ['spot_instance_request_set.launch_specification.block_device_mapping.ebs.volume_size', 'spot_instance_request_set.launch_specification.block_device_mapping.ebs.ecrypted']
+  operators ['>', '=']
+  alert_when [256, false]
 end
