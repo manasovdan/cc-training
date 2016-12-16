@@ -5,11 +5,11 @@ coreo_aws_advisor_alert 'daniel' do
   level 'Informational'
   objectives ['users']
   audit_objects ['users.password_last_used']
-  operators ['==']
-  alert_when [nil]
+  operators ['!~']
+  alert_when [//]
 end
 
-coreo_aws_advisor_iam 'another-one' do
+coreo_aws_advisor_iam 'resulting one' do
   action :advise
   alerts [ 'daniel']
 end
