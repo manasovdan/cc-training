@@ -1,17 +1,15 @@
 coreo_aws_advisor_alert 'daniel' do
   action :define
-  service :ec2
-  description 'snapshots that are greater than 256 GB that are not encrypted'
+  service :iam
+  description 'Finding Unused Credentials'
   level 'Informational'
-  objectives ['snapshots', 'snapshots']
-  audit_objects ['snapshot_set.volume_size', 'snapshot_set.encrypted']
-  operators ['>', '==']
-  alert_when [8, false]
-  id_map 'object.snapshot_set.snapshot_id'
+  objectives ['users']
+  audit_objects ['users.password_last_used']
+  operators ['==']
+  alert_when [nil]
 end
 
-coreo_aws_advisor_ec2 'another-one' do
+coreo_aws_advisor_iam 'another-one' do
   action :advise
   alerts [ 'daniel']
-  regions ['us-east-1']
 end
