@@ -9,7 +9,7 @@ coreo_aws_advisor_alert 'daniel' do
   alert_when [8, false]
 end
 
-coreo_aws_advisor_elb "another-one" do
+coreo_aws_advisor_ec2 'another-one' do
   action :advise
   alerts [ 'daniel']
 end
