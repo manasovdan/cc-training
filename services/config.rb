@@ -13,4 +13,5 @@ end
 coreo_aws_advisor_ec2 'another-one' do
   action :advise
   alerts [ 'daniel']
+  regions ['us-east-1']
 end
