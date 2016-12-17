@@ -53,7 +53,6 @@ coreo_aws_advisor_alert 'iam-all-access-keys' do
   id_map 'object.access_key_metadata.access_key_id'
   objectives ['access_keys']
   audit_objects ['access_key_metadata.user_name']
-  call_modifiers [{:user_name => 'users.user_name'}]
   operators ['=~']
   alert_when [//]
 end
