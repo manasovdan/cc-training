@@ -15,7 +15,7 @@ coreo_aws_advisor_alert 'iam-unused-access-keys' do
   description 'Finding unused access keys'
   level 'Informational'
   objectives ['access_keys']
-  audit_objects ['access_key_metadata.access_key_id']
+  audit_objects ['access_key_metadata.user_name']
   operators ['=~']
   alert_when [//]
 end
