@@ -19,7 +19,7 @@ coreo_uni_util_jsrunner 'iam-filter-users-with-unused-passwords' do
   data_type 'text'
   json_input '{}'
   function <<-EOH
-    console.log(${COMPOSITE::coreo_aws_advisor_alert.iam-get-all-users})
+    console.log( ${COMPOSITE::coreo_aws_advisor_alert.iam-get-all-users} );
 
   EOH
 end
