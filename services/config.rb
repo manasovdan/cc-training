@@ -39,9 +39,9 @@ coreo_uni_util_jsrunner 'iam-filter-users-with-unused-passwords' do
   EOH
 end
 
-coreo_aws_advisor_iam 'iam-unused-passwords' do
-  action :advise
-  alerts [ 'iam-filter-users-with-unused-passwords']
+coreo_uni_util_notify 'advise-iam-users-with-unused-passwords' do
+  action :nothing
+  notifiers 'COMPOSITE::coreo_uni_util_jsrunner.iam-filter-users-with-unused-passwords.return'
 end
 
 
