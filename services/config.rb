@@ -50,11 +50,10 @@ coreo_aws_advisor_alert 'iam-all-access-keys' do
   service :iam
   description 'Finding all access keys'
   level 'Informational'
-  id_map 'object.access_key_metadata.access_key_id'
   objectives ['access_keys']
   audit_objects ['access_key_metadata.user_name']
   operators ['=~']
-  alert_when [//]
+  alert_when [/.*/]
 end
 
 coreo_aws_advisor_iam 'iam-all-keys' do
