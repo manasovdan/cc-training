@@ -19,29 +19,31 @@ coreo_uni_util_jsrunner 'iam-filter-users-with-unused-passwords' do
   data_type 'json'
   json_input '{ "violations": COMPOSITE::coreo_aws_advisor_iam.iam-report-all-users.report}'
   function <<-EOH
-    const wayToAllViolations = json_input["violations"]['password_policy']['violations'];
-    const keyViolations = Object.keys(wayToAllViolations);
-    keyViolations.forEach(violationKey => {
-        const violationWay = wayToAllViolations[violationKey];
-        const wayToViolationObject = violationWay['violating_object'];
-        wayToViolationObject.forEach((violationItem, index) => {
-            const wayFromItem = violationItem['object'];
-            if(!wayFromItem.hasOwnProperty('password_last_used')) {
-                wayToViolationObject.splice(0, index);
-            }
-        });
-    });
-    const correctCallBack = json_input["violations"];
+        const wayToAllViolations = json_input["violations"]['password_policy']['violations'];
+        const keyViolations = Object.keys(wayToAllViolations);
 
-    const newJSON = JSON.stringify(correctCallBack);
-    callback(newJSON);
+        const userNotUse = [];
+        keyViolations.forEach(violationKey => {
+            const violationWay = wayToAllViolations[violationKey];
+            const wayToViolationObject = violationWay['violating_object'];
+
+            wayToViolationObject.forEach((violationItem, index) => {
+
+                const wayFromItem = violationItem['object'];
+                if(!wayFromItem.hasOwnProperty('password_last_used')) {
+                    const newUser = {
+                        'user_id': wayFromItem.user_id,
+                        'user_name': wayFromItem.user_name
+                    };
+                    userNotUse.push(newUser);
+                }
+            });
+        });
+
+        callback(userNotUse);
   EOH
 end
 
-coreo_uni_util_notify 'advise-iam-users-with-unused-passwords' do
-  action :nothing
-  notifiers 'COMPOSITE::coreo_uni_util_jsrunner.iam-filter-users-with-unused-passwords.return'
-end
 
 
 
