@@ -17,7 +17,7 @@ end
 coreo_uni_util_jsrunner 'iam-filter-users-with-unused-passwords' do
   action :run
   data_type 'json'
-  json_input '{ "violations": COMPOSITE::coreo_aws_advisor_alert.iam-report-all-users}'
+  json_input '{ "violations": COMPOSITE::coreo_aws_advisor_alert.iam-report-all-users.report}'
   function <<-EOH
     const wayToAllViolations = json_input["violations"]['password_policy']['violations'];
     const keyViolations = Object.keys(wayToAllViolations);
