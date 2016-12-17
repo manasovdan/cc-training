@@ -29,7 +29,7 @@ end
 coreo_uni_util_jsrunner 'iam-filter-users-with-unused-passwords' do
   action :run
   data_type 'json'
-  json_input '{ "violations": COMPOSITE::coreo_aws_advisor_alert.iam-get-all-users.report}'
+  json_input '{ "violations": COMPOSITE::coreo_aws_advisor_alert.iam-get-all-users}'
   function <<-EOH
     const wayToAllViolations = json_input["violations"]['password_policy']['violations'];
     const keyViolations = Object.keys(wayToAllViolations);
@@ -43,6 +43,9 @@ coreo_uni_util_jsrunner 'iam-filter-users-with-unused-passwords' do
             }
         });
     });
+    const correctCallBack = json_input["violations"];
+
+    const newJSON = JSON.stringify(correctCallBack);
     callback(wayToAllViolations);
   EOH
 end
