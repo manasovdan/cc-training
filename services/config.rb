@@ -20,7 +20,7 @@ coreo_aws_advisor_alert 'iam-unused-access-keys' do
   alert_when [//]
 end
 
-coreo_aws_advisor_iam 'resulting one' do
+coreo_aws_advisor_iam 'iam-unused-passwords' do
   action :advise
   alerts [ 'iam-unused-passwords']
 end
