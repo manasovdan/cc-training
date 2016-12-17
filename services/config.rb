@@ -5,8 +5,8 @@ coreo_aws_advisor_alert 'daniel' do
   level 'Informational'
   objectives ['users']
   audit_objects ['users']
-  operators ['!=']
-  alert_when [0]
+  operators ['']
+  alert_when ['']
 end
 
 coreo_aws_advisor_iam 'resulting one' do
