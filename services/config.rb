@@ -4,7 +4,7 @@ coreo_aws_advisor_alert 'daniel' do
   description 'Finding Unused Credentials'
   level 'Informational'
   objectives ['users']
-  audit_objects ['users']
+  audit_objects ['']
   operators ['']
   alert_when ['']
 end
