@@ -9,27 +9,15 @@ coreo_aws_advisor_alert 'iam-get-all-users' do
   alert_when [//]
 end
 
-coreo_aws_advisor_alert 'iam-unused-access-keys' do
-  action :define
-  service :iam
-  description 'Finding unused access keys'
-  level 'Informational'
-  objectives ['access_keys']
-  audit_objects ['access_key_metadata.user_name']
-  operators ['=~']
-  alert_when [//]
-end
-
-coreo_aws_advisor_iam 'iam-unused-keys' do
+coreo_aws_advisor_iam 'iam-report-all-users' do
   action :advise
-  alerts [ 'iam-unused-access-keys']
+  alerts [ 'iam-get-all-users']
 end
-
 
 coreo_uni_util_jsrunner 'iam-filter-users-with-unused-passwords' do
   action :run
   data_type 'json'
-  json_input '{ "violations": COMPOSITE::coreo_aws_advisor_alert.iam-get-all-users}'
+  json_input '{ "violations": COMPOSITE::coreo_aws_advisor_alert.iam-report-all-users}'
   function <<-EOH
     const wayToAllViolations = json_input["violations"]['password_policy']['violations'];
     const keyViolations = Object.keys(wayToAllViolations);
@@ -54,3 +42,21 @@ coreo_aws_advisor_iam 'iam-unused-passwords' do
   action :advise
   alerts [ 'iam-filter-users-with-unused-passwords']
 end
+
+
+#
+# coreo_aws_advisor_alert 'iam-unused-access-keys' do
+#   action :define
+#   service :iam
+#   description 'Finding unused access keys'
+#   level 'Informational'
+#   objectives ['access_keys']
+#   audit_objects ['access_key_metadata.user_name']
+#   operators ['=~']
+#   alert_when [//]
+# end
+#
+# coreo_aws_advisor_iam 'iam-unused-keys' do
+#   action :advise
+#   alerts [ 'iam-unused-access-keys']
+# end
