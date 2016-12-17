@@ -19,7 +19,6 @@ coreo_uni_util_jsrunner 'iam-filter-users-with-unused-passwords' do
   data_type 'json'
   json_input '{ "violations": COMPOSITE::coreo_aws_advisor_iam.iam-report-all-users.report}'
   function <<-EOH
-    console.log(json_input)
     const wayToAllViolations = json_input["violations"]['password_policy']['violations'];
     const keyViolations = Object.keys(wayToAllViolations);
     keyViolations.forEach(violationKey => {
@@ -35,7 +34,7 @@ coreo_uni_util_jsrunner 'iam-filter-users-with-unused-passwords' do
     const correctCallBack = json_input["violations"];
 
     const newJSON = JSON.stringify(correctCallBack);
-    callback(wayToAllViolations);
+    callback(newJSON);
   EOH
 end
 
@@ -45,19 +44,4 @@ coreo_uni_util_notify 'advise-iam-users-with-unused-passwords' do
 end
 
 
-#
-# coreo_aws_advisor_alert 'iam-unused-access-keys' do
-#   action :define
-#   service :iam
-#   description 'Finding unused access keys'
-#   level 'Informational'
-#   objectives ['access_keys']
-#   audit_objects ['access_key_metadata.user_name']
-#   operators ['=~']
-#   alert_when [//]
-# end
-#
-# coreo_aws_advisor_iam 'iam-unused-keys' do
-#   action :advise
-#   alerts [ 'iam-unused-access-keys']
-# end
+
