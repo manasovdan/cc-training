@@ -9,16 +9,17 @@ coreo_aws_advisor_alert 'iam-get-all-users' do
   alert_when [//]
 end
 
-coreo_aws_advisor_iam 'iam-report-all-users' do
-  action :advise
-  alerts [ 'iam-get-all-users']
-end
+# coreo_aws_advisor_iam 'iam-report-all-users' do
+#   action :advise
+#   alerts [ 'iam-get-all-users']
+# end
 
 coreo_uni_util_jsrunner 'iam-filter-users-with-unused-passwords' do
   action :run
   data_type 'json'
   json_input '{ "violations": COMPOSITE::coreo_aws_advisor_alert.iam-get-all-users.violations}'
   function <<-EOH
+    console.log(json_input)
     const wayToAllViolations = json_input["violations"]['password_policy']['violations'];
     const keyViolations = Object.keys(wayToAllViolations);
     keyViolations.forEach(violationKey => {
