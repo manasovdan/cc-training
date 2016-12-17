@@ -4,9 +4,9 @@ coreo_aws_advisor_alert 'daniel' do
   description 'Finding Unused Credentials'
   level 'Informational'
   objectives ['users']
-  audit_objects ['users.password_last_used']
-  operators ['==']
-  alert_when [nil]
+  audit_objects ['users']
+  operators ['!=']
+  alert_when [0]
 end
 
 coreo_aws_advisor_iam 'resulting one' do
